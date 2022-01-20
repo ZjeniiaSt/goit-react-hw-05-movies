@@ -9,4 +9,9 @@ async function getTrendingMovies() {
   return response.data.results;
 }
 
-export { getTrendingMovies };
+async function getMovieDetails(id) {
+  const respons = await axios.get(`movie/${id}`);
+  return respons.data;
+}
+
+export { getTrendingMovies, getMovieDetails };
