@@ -10,8 +10,25 @@ async function getTrendingMovies() {
 }
 
 async function getMovieDetails(id) {
-  const respons = await axios.get(`movie/${id}`);
+  const respons = await axios.get(`movie/${id}&language=en-US`);
   return respons.data;
 }
 
-export { getTrendingMovies, getMovieDetails };
+async function getCast(id) {
+  const respons = await axios.get(`movie/${id}/credits?&language=en-US`);
+  return respons.data.cast;
+}
+
+async function getReviews(id) {
+  const respons = await axios.get(`movie/${id}/reviews?&language=en-US`);
+  return respons.data.results;
+}
+
+async function getByQuery(query) {
+  const respons = await axios.get(
+    `search/movie?&language=en-US&page=1&include_adult=false&query=${query}`,
+  );
+  return respons.data.results;
+}
+
+export { getTrendingMovies, getMovieDetails, getCast, getReviews, getByQuery };
