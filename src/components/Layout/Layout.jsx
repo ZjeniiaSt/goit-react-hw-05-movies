@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom';
-import { Header, StyledNavLink, Container } from './Layout.style';
+import { Header, StyledNavLink, Section } from './Layout.style';
+
 const Layout = () => {
   return (
     <>
@@ -10,9 +11,9 @@ const Layout = () => {
         </nav>
       </Header>
       <main>
-        <Container>
+        <Section>
           <Outlet />
-        </Container>
+        </Section>
       </main>
     </>
   );

@@ -1,5 +1,12 @@
 import styled from 'styled-components';
 
+export const Container = styled.div`
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
+`;
+
 export const Gallery = styled.ul`
   display: flex;
   flex-wrap: wrap;
@@ -19,6 +26,5 @@ export const Item = styled.li`
 
 export const Poster = styled.img`
   border-radius: 5px;
-  margin-bottom: 10px;
   width: 250px;
 `;

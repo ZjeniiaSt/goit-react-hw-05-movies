@@ -1,55 +1,65 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
+import {
+  Container,
+  Button,
+  BaseInfo,
+  Poster,
+  Description,
+  Title,
+  Subtitle,
+  StyledNavLink,
+} from './MovieInfo.style';
 
 function MovieInfo({ movie }) {
   console.log(movie);
   const navigate = useNavigate();
 
   return (
-    <>
-      <div>
-        <button type="button" onClick={() => navigate(-1)}>
-          Go back
-        </button>
-      </div>
+    <Container>
+      <Button type="button" onClick={() => navigate(-1)}>
+        Go back
+      </Button>
       {movie && (
-        <div>
-          <img
-            src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-            alt={movie.title}
-            width="250px"
-          />
-          <div>
-            <h2>
-              {movie.title} ({movie.release_date.slice(0, 4)})
-            </h2>
-            <h3>Overview:</h3>
-            <p>{movie.overview}</p>
-            <p>
-              <b>User Score: {movie.vote_average} </b>
-            </p>
-            <h3>Genres</h3>
-            <ul>
-              {movie.genres.map(({ id, name }) => {
-                return <li key={id}>{name}</li>;
-              })}
-            </ul>
-          </div>
+        <Container>
+          <BaseInfo>
+            <Poster
+              src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+              alt={movie.title}
+              width="250px"
+            />
+            <Description>
+              <Title>
+                {movie.title} ({movie.release_date.slice(0, 4)})
+              </Title>
+              <Subtitle>Overview:</Subtitle>
+              <p>{movie.overview}</p>
+
+              <Subtitle>User Score: {movie.vote_average} </Subtitle>
+
+              <Subtitle>Genres</Subtitle>
+              <ul>
+                {movie.genres.map(({ id, name }) => {
+                  return <li key={id}>{name}</li>;
+                })}
+              </ul>
+            </Description>
+          </BaseInfo>
 
           <div>
-            <h3>Additional information</h3>
+            <Subtitle>Additional information</Subtitle>
             <ul>
               <li>
-                <Link to="cast">Cast</Link>
+                <StyledNavLink to="cast">Cast</StyledNavLink>
               </li>
               <li>
-                <Link to="reviews">Reviews</Link>
+                <StyledNavLink to="reviews">Reviews</StyledNavLink>
               </li>
             </ul>
             <Outlet />
           </div>
-        </div>
+        </Container>
       )}
-    </>
+    </Container>
   );
 }
 

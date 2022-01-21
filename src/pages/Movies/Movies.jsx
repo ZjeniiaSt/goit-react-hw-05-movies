@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useLocation } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
 import Load from '../../components/Loader';
 import { getByQuery } from '../../services/apiServise';
@@ -10,6 +10,7 @@ function Search() {
   const [query, setQuery] = useState('');
   const [movies, setMovies] = useState([]);
   const [status, setStatus] = useState('idle');
+  const location = useLocation();
 
   useEffect(() => {
     if (!query) {
@@ -46,7 +47,7 @@ function Search() {
         <>
           <Gallery>
             {movies.map(movie => (
-              <Link to={`/movies/${movie.id} `} key={movie.id}>
+              <Link to={`/movies/${movie.id} `} state={{ from: location }} key={movie.id}>
                 <Item>
                   <Poster
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}

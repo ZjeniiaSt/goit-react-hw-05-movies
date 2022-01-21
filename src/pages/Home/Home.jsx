@@ -1,18 +1,23 @@
 import { NavLink, Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Gallery, Item, Poster } from './Home.style';
+import { Toaster, toast } from 'react-hot-toast';
+import Load from '../../components/Loader';
+import { Container, Gallery, Item, Poster } from './Home.style';
 import { getTrendingMovies } from '../../services/apiServise';
 
 function Home() {
   const [trendingMovies, setTrendingMovies] = useState([]);
+  const [status, setStatus] = useState('idle');
 
   useEffect(() => {
+    setStatus('pending');
     const fetch = async () => {
       try {
         const movies = await getTrendingMovies();
         setTrendingMovies(movies);
+        setStatus('resolved');
       } catch (error) {
-        console.log(error);
+        toast.error('Sorry, we have a problem');
       }
     };
     fetch();
@@ -20,19 +25,29 @@ function Home() {
 
   return (
     <>
-      <Gallery>
-        {trendingMovies.map(movie => (
-          <NavLink to={`/movies/${movie.id}`} key={movie.id}>
-            <Item key={movie.id}>
-              <Poster
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                alt={movie.title}
-              />
-            </Item>
-          </NavLink>
-        ))}
-      </Gallery>
-      <Outlet />
+      <Toaster />
+      {status === 'pending' && (
+        <div>
+          <Load />
+        </div>
+      )}
+      {status === 'resolved' && (
+        <Container>
+          <Gallery>
+            {trendingMovies.map(movie => (
+              <NavLink to={`/movies/${movie.id}`} key={movie.id}>
+                <Item key={movie.id}>
+                  <Poster
+                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    alt={movie.title}
+                  />
+                </Item>
+              </NavLink>
+            ))}
+          </Gallery>
+          <Outlet />
+        </Container>
+      )}
     </>
   );
 }

@@ -9,7 +9,7 @@ export const Header = styled.header`
 export const StyledNavLink = styled(NavLink)`
   color: black;
   :not(:last-child) {
-    margin-right: 5px;
+    margin-right: 10px;
   }
   &.active {
     color: #6e2e3f;
@@ -18,8 +18,12 @@ export const StyledNavLink = styled(NavLink)`
 `;
 
 export const Container = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  padding: 50px;
-  align-items: center;
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  width: 100%;
+`;
+
+export const Section = styled.section`
+  padding: 60px, 0;
 `;
