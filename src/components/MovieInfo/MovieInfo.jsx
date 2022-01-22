@@ -1,4 +1,6 @@
 import { Link, Outlet, useNavigate } from 'react-router-dom';
+import propTypes from 'prop-types';
+
 import {
   Container,
   Button,
@@ -7,11 +9,12 @@ import {
   Description,
   Title,
   Subtitle,
-  StyledNavLink,
+  AddInfo,
+  Menu,
+  MenuItem,
 } from './MovieInfo.style';
 
-function MovieInfo({ movie }) {
-  console.log(movie);
+function MovieInfo({ movie, scrollRef }) {
   const navigate = useNavigate();
 
   return (
@@ -23,7 +26,11 @@ function MovieInfo({ movie }) {
         <Container>
           <BaseInfo>
             <Poster
-              src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
+              src={
+                movie.poster_path
+                  ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
+                  : 'https://pomogaetsrazu.ru/images/offers/2829219234.jpg'
+              }
               alt={movie.title}
               width="250px"
             />
@@ -45,22 +52,27 @@ function MovieInfo({ movie }) {
             </Description>
           </BaseInfo>
 
-          <div>
-            <Subtitle>Additional information</Subtitle>
-            <ul>
-              <li>
-                <StyledNavLink to="cast">Cast</StyledNavLink>
-              </li>
-              <li>
-                <StyledNavLink to="reviews">Reviews</StyledNavLink>
-              </li>
-            </ul>
-            <Outlet />
-          </div>
+          <AddInfo>
+            <Subtitle ref={scrollRef}>Additional information</Subtitle>
+            <Menu>
+              <MenuItem>
+                <Link to="cast">Cast</Link>
+              </MenuItem>
+              <MenuItem>
+                <Link to="reviews">Reviews</Link>
+              </MenuItem>
+            </Menu>
+          </AddInfo>
+          <Outlet />
         </Container>
       )}
     </Container>
   );
 }
+
+MovieInfo.propTypes = {
+  movie: propTypes.object,
+  scrollRef: propTypes.object,
+};
 
 export default MovieInfo;

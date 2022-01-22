@@ -5,12 +5,12 @@ import toast from 'react-hot-toast';
 import { SearchbarSt, SearchFormSt, Input, Button } from './SearchBar.style';
 
 function SearchBar(props) {
-  const [query, setquery] = useState('');
+  const [query, setQuery] = useState('');
   const navigate = useNavigate();
   const location = useLocation();
 
   const onChange = event => {
-    setquery(event.currentTarget.value.toLowerCase());
+    setQuery(event.currentTarget.value.toLowerCase());
   };
 
   const onSubmit = event => {
@@ -23,7 +23,7 @@ function SearchBar(props) {
 
     props.onSubmit(query);
     navigate({ ...location, search: `query=${query}` });
-    setquery('');
+    setQuery('');
   };
 
   return (

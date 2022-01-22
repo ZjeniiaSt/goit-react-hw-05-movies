@@ -20,14 +20,14 @@ export const Photo = styled.img`
   width: 150px;
 `;
 
-export const ItemDescr = styled.p`
+export const ItemDescr = styled.ul`
   padding: 10px;
 `;
 
-export const Name = styled.p`
+export const Name = styled.li`
   font-weight: 500;
   color: #1f1f1f;
 `;
-export const Character = styled.p`
+export const Character = styled.li`
   color: #505050;
 `;

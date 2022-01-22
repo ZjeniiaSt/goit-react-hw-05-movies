@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { getCast } from '../../../services/apiServise';
 import { CastsList, CastItem, Photo, Name, ItemDescr, Character } from './Casts.styled';
+import propTypes from 'prop-types';
 
-function Cast() {
+function Cast({ scrollRef }) {
   const [cast, setCast] = useState([]);
   const { movieId } = useParams();
 
@@ -12,15 +13,16 @@ function Cast() {
       try {
         const cast = await getCast(movieId);
         setCast(cast);
+        scrollRef.current.scrollIntoView({ behavior: 'smooth' });
       } catch (error) {
         console.log(error);
       }
     };
     fetch();
-  }, [movieId]);
+  }, [movieId, scrollRef]);
 
   return (
-    <div>
+    <div ref={scrollRef}>
       <CastsList>
         {cast.map(actor => {
           return (
@@ -36,10 +38,7 @@ function Cast() {
               />
               <ItemDescr>
                 <Name>{actor.original_name}</Name>
-                <Character>
-                  Character:<p></p>
-                  {actor.character}
-                </Character>
+                <Character>Character:{actor.character}ss</Character>
               </ItemDescr>
             </CastItem>
           );
@@ -48,4 +47,9 @@ function Cast() {
     </div>
   );
 }
+
+Cast.propTypes = {
+  scrollRef: propTypes.object,
+};
+
 export default Cast;

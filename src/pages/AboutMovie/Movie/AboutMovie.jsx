@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getMovieDetails } from '../../services/apiServise';
-import MovieInfo from '../../components/MovieInfo';
+import { getMovieDetails } from '../../../services/apiServise';
+import MovieInfo from '../../../components/MovieInfo';
 
-function AboutMovie() {
+export default function AboutMovie() {
   const [movie, setMovie] = useState(null);
   const { movieId } = useParams();
 
@@ -21,5 +21,3 @@ function AboutMovie() {
 
   return <MovieInfo movie={movie} />;
 }
-
-export default AboutMovie;

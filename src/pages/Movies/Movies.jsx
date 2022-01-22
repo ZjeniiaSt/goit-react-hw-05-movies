@@ -21,7 +21,7 @@ function Search() {
     const fetch = async () => {
       try {
         const movies = await getByQuery(query);
-        if (movies.lenght === 0) {
+        if (movies.length === 0) {
           toast.error('Nothing found');
           return setStatus('idle');
         } else setMovies(movies);
@@ -50,7 +50,11 @@ function Search() {
               <Link to={`/movies/${movie.id} `} state={{ from: location }} key={movie.id}>
                 <Item>
                   <Poster
-                    src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                    src={
+                      movie.poster_path
+                        ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                        : 'https://pomogaetsrazu.ru/images/offers/2829219234.jpg'
+                    }
                     alt={movie.title}
                   />
                 </Item>
