@@ -8,6 +8,7 @@ export const Container = styled.div`
 `;
 
 export const Button = styled.button`
+  position: sticky;
   display: block;
   color: #6e2e3f;
   border-radius: 28px;

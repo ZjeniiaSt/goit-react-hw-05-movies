@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom';
 import propTypes from 'prop-types';
 
 import {
@@ -15,11 +15,16 @@ import {
 } from './MovieInfo.style';
 
 function MovieInfo({ movie, scrollRef }) {
-  const navigate = useNavigate();
+  let navigate = useNavigate();
+  const location = useLocation();
+
+  const onGoBack = () => {
+    navigate(location?.state?.from ?? '/');
+  };
 
   return (
     <Container>
-      <Button type="button" onClick={() => navigate(-1)}>
+      <Button type="button" onClick={onGoBack}>
         Go back
       </Button>
       {movie && (
