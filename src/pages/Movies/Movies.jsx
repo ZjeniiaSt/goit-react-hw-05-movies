@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link, Outlet, useLocation } from 'react-router-dom';
+import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { Toaster, toast } from 'react-hot-toast';
 import Load from '../../components/Loader';
 import { getByQuery } from '../../services/apiServise';
@@ -7,20 +7,21 @@ import SearchBar from '../../components/SearchBar/SearchBar';
 import { Gallery, Item, Poster } from '../Home/Home.style';
 
 function Search() {
-  const [query, setQuery] = useState('');
   const [movies, setMovies] = useState([]);
   const [status, setStatus] = useState('idle');
   const location = useLocation();
+  const navigate = useNavigate();
+  const navigateQuery = new URLSearchParams(location.search).get('query');
 
   useEffect(() => {
-    if (!query) {
+    if (!navigateQuery) {
       return;
     }
 
     setStatus('pending');
     const fetch = async () => {
       try {
-        const movies = await getByQuery(query);
+        const movies = await getByQuery(navigateQuery);
         if (movies.length === 0) {
           toast.error('Nothing found');
           return setStatus('idle');
@@ -31,11 +32,17 @@ function Search() {
       }
     };
     fetch();
-  }, [query]);
+  }, [navigateQuery]);
+
+  function onSubmit(query) {
+    setMovies(query);
+
+    navigate({ ...location, search: `query=${query}` });
+  }
 
   return (
     <div>
-      <SearchBar onSubmit={setQuery}></SearchBar>
+      <SearchBar onSubmit={onSubmit}></SearchBar>
       <Toaster />
       {status === 'idle' && <></>}
       {status === 'pending' && (

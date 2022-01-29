@@ -33,7 +33,7 @@ function App() {
           >
             <Route index element={<Home />} />
             <Route path="movies" element={<Movies />} />
-            <Route path="movies/:movieId/*" element={<AboutMovie scrollRef={scrollRef} />}>
+            <Route path="movies/:movieId" element={<AboutMovie scrollRef={scrollRef} />}>
               <Route path="cast" element={<Cast scrollRef={scrollRef} />} />
               <Route path="reviews" element={<Reviews scrollRef={scrollRef} />} />
             </Route>

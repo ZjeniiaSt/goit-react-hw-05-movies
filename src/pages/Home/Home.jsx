@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { Toaster, toast } from 'react-hot-toast';
 import Load from '../../components/Loader';
@@ -8,6 +8,8 @@ import { getTrendingMovies } from '../../services/apiServise';
 function Home() {
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [status, setStatus] = useState('idle');
+  const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setStatus('pending');
@@ -35,7 +37,7 @@ function Home() {
         <Container>
           <Gallery>
             {trendingMovies.map(movie => (
-              <NavLink to={`/movies/${movie.id}`} key={movie.id}>
+              <NavLink to={`/movies/${movie.id}`} state={{ from: location }} key={movie.id}>
                 <Item key={movie.id}>
                   <Poster
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}

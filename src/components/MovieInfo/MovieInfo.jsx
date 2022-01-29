@@ -15,12 +15,12 @@ import {
 } from './MovieInfo.style';
 
 function MovieInfo({ movie, scrollRef }) {
-  let navigate = useNavigate();
+  const navigate = useNavigate();
   const location = useLocation();
 
-  const onGoBack = () => {
+  function onGoBack() {
     navigate(location?.state?.from ?? '/');
-  };
+  }
 
   return (
     <Container>
